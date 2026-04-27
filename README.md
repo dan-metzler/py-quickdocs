@@ -1,4 +1,4 @@
-# pymarkdown
+# py-quickdocs
 
 [![Build](https://github.com/dan-metzler/py-quickdocs/actions/workflows/test.yml/badge.svg)](https://github.com/dan-metzler/py-quickdocs/actions/workflows/test.yml) [![Tests](https://img.shields.io/badge/tests-206%20passing-brightgreen)](#)
 
