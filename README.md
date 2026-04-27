@@ -1,6 +1,6 @@
 # pymarkdown
 
-[![Build](https://github.com/dan-metzler/py-quickdocs/actions/workflows/test.yml/badge.svg)](https://github.com/dan-metzler/py-quickdocs/actions/workflows/test.yml) [![Tests](https://img.shields.io/badge/tests-188%20passing-brightgreen)](#)
+[![Build](https://github.com/dan-metzler/py-quickdocs/actions/workflows/test.yml/badge.svg)](https://github.com/dan-metzler/py-quickdocs/actions/workflows/test.yml) [![Tests](https://img.shields.io/badge/tests-206%20passing-brightgreen)](#)
 
 Converts Markdown files to styled PDFs. Supports cover banners, themes, admonition blocks, syntax-highlighted code, columns layout, images, and custom logos - all driven from Markdown and a single CSS file.
 
