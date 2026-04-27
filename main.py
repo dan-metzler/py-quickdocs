@@ -288,13 +288,11 @@ def restore_admonitions(html: str, admonitions: dict) -> str:
 
 def _embed_images_in_html(html: str, source_dir: Path) -> str:
     """Replace <img src> paths with base64 data URIs so WeasyPrint resolves them from any temp path."""
-    project_root = Path(__file__).parent
-
     def replacer(m: re.Match) -> str:
         src = m.group(1)
         if src.startswith("data:") or src.startswith("http://") or src.startswith("https://"):
             return m.group(0)
-        img = project_root / src.lstrip("/") if src.startswith("/") else source_dir / src
+        img = Path(src) if Path(src).is_absolute() else source_dir / src
         if not img.exists():
             print(f"Warning: image not found, skipping embed: {img}")
             return m.group(0)
