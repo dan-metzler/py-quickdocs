@@ -1,46 +1,147 @@
+/* ============================================================
+   THEME
+   Edit these variables to restyle the whole document.
+   ============================================================ */
+:root {
+    --font-body:    Georgia, 'Times New Roman', serif;
+    --font-heading: Arial, Helvetica, sans-serif;
+
+    --accent:      #003388;   /* headings */
+    --link:        #0091DA;   /* hyperlinks */
+    --code-bg:     #edf1fb;   /* inline code background */
+    --code-border: #c9d4ef;   /* inline code border */
+    --code-text:   #1a2e6b;   /* inline code text */
+
+    --note-color:    #448aff;
+    --tip-color:     #00c853;
+    --warning-color: #ff9100;
+    --danger-color:  #ff1744;
+    --info-color:    #00b0ff;
+
+    --text:              #1a1a1a;
+    --text-muted:        #555;
+    --border:            #dde3ec;
+    --column-rule-color: var(--border);
+    --surface:           #f6f8fa;
+    --surface-alt:       #fafafa;
+    --page-num:          #999;
+    --page-margin:       0.5cm;  /* increase for more whitespace, decrease to fit more content */
+}
+
+/* - Slate theme --------------------------------------------- */
+/* :root {
+    --accent:      #374151;
+    --link:        #6366f1;
+    --code-bg:     #f3f4f6;
+    --code-border: #d1d5db;
+    --code-text:   #1f2937;
+} */
+
+
+/* - Teal theme ---------------------------------------------- */
+:root {
+    --accent:      #00695c;
+    --link:        #00897b;
+    --code-bg:     #e0f2f1;
+    --code-border: #80cbc4;
+    --code-text:   #004d40;
+}
+
+
+/* ============================================================
+   BASE
+   ============================================================ */
 @page {
-    margin: 0.5cm;
+    margin: var(--page-margin);
     @bottom-right {
         content: counter(page);
         font-size: 10px;
-        color: #999;
+        color: var(--page-num);
     }
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: var(--font-body);
     font-size: 13px;
-    line-height: 1.4;
-    color: #1a1a1a;
+    line-height: 1.5;
+    color: var(--text);
+    margin: 0;
+    padding: 0;
+    orphans: 3;
+    widows: 3;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    color: var(--accent);
+    padding-top: 0;
 }
 
 h1 {
     font-size: 1.8em;
-    border-bottom: 2px solid #eee;
+    border-bottom: 2px solid var(--heading-rule-color);
     padding-bottom: 0.2em;
     margin: 0.6em 0 0.4em;
+    page-break-after: avoid;
 }
 
-h2 { font-size: 1.3em; border-bottom: 1px solid #eee; padding-bottom: 0.15em; margin: 1em 0 0.4em; page-break-after: avoid; }
+h2 { font-size: 1.3em; border-bottom: 1px solid var(--heading-rule-color); padding-bottom: 0.15em; margin: 1em 0 0.4em; page-break-after: avoid; }
 h3 { font-size: 1.1em; margin: 0.8em 0 0.3em; page-break-after: avoid; }
 
 p { margin: 0.3em 0; }
 ul, ol { margin: 0.3em 0; padding-left: 1.4em; }
 li { margin: 0.15em 0; }
 
-a { color: #448aff; text-decoration: none; }
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.10), 0 1px 3px rgba(0, 0, 0, 0.06);
+    margin: 0.5em 0;
+    page-break-inside: avoid;
+}
 
+.cover-banner img { max-width: none; margin: 0; border-radius: 0; border: none; box-shadow: none; }
+.admonition img { margin: 0; border-radius: 0; border: none; box-shadow: none; }
+
+a { color: var(--link); text-decoration: none; }
+
+hr { border: none; border-top: 1px solid var(--heading-rule-color); margin: 1.5em 0; }
+
+/* ============================================================
+   COLUMNS
+   ============================================================ */
+.columns-layout {
+    column-gap: 1.8em;
+    column-rule: 1px solid var(--column-rule-color);
+    column-fill: auto;
+}
+
+/* column-span on tables is handled by Python (_process_tables) */
+
+.columns-layout pre { white-space: pre-wrap; overflow: hidden; break-inside: avoid; }
+
+.columns-layout img,
+.columns-layout .admonition { break-inside: avoid; }
+
+/* ============================================================
+   CODE
+   ============================================================ */
 code {
-    background: #f6f8fa;
-    padding: 2px 6px;
+    background: var(--code-bg);
+    padding: 1px 5px;
     border-radius: 3px;
-    font-family: 'Courier New', monospace;
-    font-size: 0.88em;
+    border: 1px solid var(--code-border);
+    font-family: Consolas, 'Courier New', monospace;
+    font-size: 0.85em;
+    color: var(--code-text);
 }
 
 pre {
-    background: #f6f8fa;
-    border: 1px solid #e1e4e8;
+    background: var(--surface);
+    border: 1px solid var(--border);
     border-radius: 6px;
     padding: 16px;
     overflow-x: auto;
@@ -50,8 +151,49 @@ pre {
 pre code {
     background: none;
     padding: 0;
+    border: none;
+    color: inherit;
     font-size: 0.9em;
 }
+
+pre code > div { display: block; min-height: 1.2em; }
+
+.admonition.note    code { background: var(--note-code-bg);    border-color: var(--note-code-border);    color: var(--note-code-text); }
+.admonition.tip     code { background: var(--tip-code-bg);     border-color: var(--tip-code-border);     color: var(--tip-code-text); }
+.admonition.warning code { background: var(--warning-code-bg); border-color: var(--warning-code-border); color: var(--warning-code-text); }
+.admonition.danger  code { background: var(--danger-code-bg);  border-color: var(--danger-code-border);  color: var(--danger-code-text); }
+.admonition.info    code { background: var(--info-code-bg);    border-color: var(--info-code-border);    color: var(--info-code-text); }
+
+.code-block { margin: 1em 0; break-inside: avoid; }
+.code-block pre { margin: 0; }
+
+.code-lang {
+    float: right;
+    font-family: var(--font-heading);
+    font-size: 0.62em;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    background: var(--border);
+    padding: 1px 8px 2px;
+    border-radius: 0 6px 0 4px;
+    margin: -16px -16px 0 8px;
+}
+
+/* ============================================================
+   TABLES
+   ============================================================ */
+.table-wrap { margin: 1em 0; }
+.table-wrap table { margin: 0; }
+
+.table-compact table { font-size: 0.82em; table-layout: fixed; width: 100%; word-break: break-word; }
+.table-compact th,
+.table-compact td   { padding: 5px 7px; }
+
+.table-tiny table { font-size: 0.72em; table-layout: fixed; width: 100%; word-break: break-word; }
+.table-tiny th,
+.table-tiny td    { padding: 3px 5px; }
 
 table {
     border-collapse: collapse;
@@ -59,23 +201,31 @@ table {
     margin: 1em 0;
 }
 
+thead { display: table-header-group; }
+
 th, td {
-    border: 1px solid #ddd;
+    border: 1px solid var(--border);
     padding: 8px 12px;
     text-align: left;
 }
 
-th { background: #f6f8fa; font-weight: 600; }
-tr:nth-child(even) { background: #fafafa; }
+th { background: var(--surface); font-weight: 600; }
+tr:nth-child(even) { background: var(--surface-alt); }
 tr { page-break-inside: avoid; }
 
+/* ============================================================
+   BLOCKQUOTE
+   ============================================================ */
 blockquote {
-    border-left: 4px solid #ddd;
+    border-left: 4px solid var(--border);
     margin: 0;
     padding: 8px 16px;
-    color: #555;
+    color: var(--text-muted);
 }
 
+/* ============================================================
+   ADMONITIONS
+   ============================================================ */
 .admonition {
     border-radius: 4px;
     padding: 7px 12px;
@@ -94,37 +244,87 @@ blockquote {
 
 .admonition p { margin: 0; }
 
-.cover-banner {
-    border-radius: 8px;
-    padding: 40px 36px 32px;
-    margin: 0 0 2em 0;
-    color: white;
+.admonition.note    { background: var(--note-bg,    #e8f4fd); border-left-color: var(--note-color); }
+.admonition.tip     { background: var(--tip-bg,     #e8f5e9); border-left-color: var(--tip-color); }
+.admonition.warning { background: var(--warning-bg, #fff8e1); border-left-color: var(--warning-color); }
+.admonition.danger  { background: var(--danger-bg,  #fce4ec); border-left-color: var(--danger-color); }
+.admonition.info    { background: var(--info-bg,    #e1f5fe); border-left-color: var(--info-color); }
+
+.admonition.note    .admonition-title, .admonition.note    .admonition-compact-icon { color: var(--note-color); }
+.admonition.tip     .admonition-title, .admonition.tip     .admonition-compact-icon { color: var(--tip-color); }
+.admonition.warning .admonition-title, .admonition.warning .admonition-compact-icon { color: var(--warning-color); }
+.admonition.danger  .admonition-title, .admonition.danger  .admonition-compact-icon { color: var(--danger-color); }
+.admonition.info    .admonition-title, .admonition.info    .admonition-compact-icon { color: var(--info-color); }
+
+.admonition-compact {
+    display: flex;
+    align-items: center;
+    padding: 4px 10px;
 }
 
-.cover-company {
+.admonition-compact-icon { flex-shrink: 0; }
+.admonition-compact-body p { margin: 0; }
+
+/* ============================================================
+   COVER BANNER
+   ============================================================ */
+.cover-banner {
+    border-radius: 8px;
+    padding: 0.8em 2.5em;
+    margin: 0 0 1.5em 0;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.cover-banner-minimal {
+    padding: 0.5em 2.5em;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cover-banner-minimal .cover-title {
+    font-size: 1.4em;
+    margin-bottom: 0;
+    line-height: 1.2;
+}
+
+.cover-banner-minimal .cover-meta {
+    font-size: 0.75em;
+    margin-top: 0;
+    opacity: 0.75;
+    text-align: right;
+}
+
+.cover-author {
     font-size: 0.85em;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     opacity: 0.8;
-    margin-bottom: 12px;
+    margin-bottom: 0.4em;
 }
 
 .cover-title {
     font-size: 2.2em;
     font-weight: 700;
-    line-height: 1.2;
-    margin-bottom: 10px;
+    line-height: 1.15;
+    margin-bottom: 0.2em;
 }
 
 .cover-subtitle {
-    font-size: 1.1em;
+    font-family: Arial, sans-serif;
+    font-size: 2.4em;
+    line-height: 1.1;
     opacity: 0.85;
-    margin-bottom: 16px;
+    margin: 0;
 }
 
 .cover-meta {
     font-size: 0.8em;
     opacity: 0.65;
-    margin-top: 8px;
+    margin-top: 0.6em;
 }
