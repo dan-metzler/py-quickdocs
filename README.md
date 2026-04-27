@@ -73,7 +73,7 @@ Informational callout.
 :::
 
 :::tip
-Helpful suggestion.
+Helpful suggestion. 
 :::
 
 :::warning
